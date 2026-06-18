@@ -1,0 +1,41 @@
+name: Restart Hugging Face Spaces
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  restart:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install huggingface_hub
+
+      - name: Restart Spaces
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          python - <<EOF
+          import os
+          from huggingface_hub import HfApi
+
+          api = HfApi(token=os.environ["HF_TOKEN"])
+
+          spaces = [
+          "https://huggingface.co/spaces/kashishgupta/OpenEnv_Legal_Research_RL_env",
+          "https://huggingface.co/spaces/kashishgupta/Pet_Parenting_Tips_and_Blogs_Generation_API",
+          "https://huggingface.co/spaces/kashishgupta/PawsPalConnect_upgraded_nutrition_API"
+          ]
+
+          for space in spaces:
+              print(f"Restarting {space}...")
+              api.restart_space(repo_id=space)
+
+          print("All Spaces restarted successfully!")
+          EOF
