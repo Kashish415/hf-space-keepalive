@@ -28,10 +28,10 @@ jobs:
           api = HfApi(token=os.environ["HF_TOKEN"])
 
           spaces = [
-          "https://huggingface.co/spaces/kashishgupta/OpenEnv_Legal_Research_RL_env",
-          "https://huggingface.co/spaces/kashishgupta/Pet_Parenting_Tips_and_Blogs_Generation_API",
-          "https://huggingface.co/spaces/kashishgupta/PawsPalConnect_upgraded_nutrition_API"
-          ]
+            "kashishgupta/OpenEnv_Legal_Research_RL_env",
+            "kashishgupta/Pet_Parenting_Tips_and_Blogs_Generation_API",
+            "kashishgupta/PawsPalConnect_upgraded_nutrition_API"
+            ]
 
           for space in spaces:
               print(f"Restarting {space}...")
